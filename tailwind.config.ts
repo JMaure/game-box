@@ -14,5 +14,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["emerald"],
+  },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require("daisyui")],
 } satisfies Config;
