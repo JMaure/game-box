@@ -16,8 +16,9 @@ export default {
     },
   },
   daisyui: {
-    themes: ["nord"],
+    themes: ["nord", "business"],
   },
+  darkMode: ["selector", '[data-theme="business"'],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("daisyui")],
 } satisfies Config;

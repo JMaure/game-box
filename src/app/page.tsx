@@ -16,7 +16,7 @@ export default function Home() {
     <main className="max-w-4xl m-auto">
       <Header />
       <div className="m-auto h-full flex">
-        <div className="px-4 py-8 flex flex-1 gap-4 bg-primary/90 max-lg:flex-col">
+        <div className="px-4 py-8 flex flex-1 gap-4 max-lg:flex-col">
           <MenuGames games={games} currentGame={currentGame} />
         </div>
         <div className="mb-4 mt-8 mx-4 min-h-80 w-full">
