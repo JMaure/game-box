@@ -2,7 +2,7 @@ import { Box } from "lucide-react";
 
 export const Header = () => {
   return (
-    <div className="flex min-h-16 w-full bg-primary items-center gap-4">
+    <div className="flex min-h-16 w-full bg-primary items-center gap-4 text-primary-content">
       <div className="flex-none mx-4">
         <Box />
       </div>
