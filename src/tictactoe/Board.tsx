@@ -1,16 +1,16 @@
 import { Cell } from "./Cell";
 
-interface BoardProps {
+type BoardType = {
   board: Array<string>;
   onClick: (index: number) => void;
-}
+};
 
-export const Board: React.FC<BoardProps> = ({ board, onClick }) => {
+export const Board = (props: BoardType) => {
   return (
     <div className="grid grid-cols-3 gap-4">
-      {board.map((val: string, index: number) => {
+      {props.board.map((val: string, index: number) => {
         return (
-          <Cell key={index} onClick={() => onClick(index)}>
+          <Cell key={index} onClick={() => props.onClick(index)}>
             {val}
           </Cell>
         );
