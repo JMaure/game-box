@@ -4,6 +4,7 @@ import { Header } from "./Header";
 import { MenuGames } from "./MenuGames";
 import { useSearchParams } from "next/navigation";
 import { TicTacToe } from "@/tictactoe/TicTacToe";
+import { Minesweeper } from "./minesweeper/Minesweeper";
 
 export default function Home() {
   const games: Array<string> = ["TicTacToe", "Minesweeper", "Snake"];
@@ -29,7 +30,7 @@ export default function Home() {
             </p>
           )}
           {currentGame === "TicTacToe" && <TicTacToe />}
-          {currentGame === "Minesweeper" && <p>Minesweeper</p>}
+          {currentGame === "Minesweeper" && <Minesweeper />}
           {currentGame === "Snake" && <p>Snake</p>}
         </div>
       </div>
