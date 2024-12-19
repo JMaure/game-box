@@ -33,7 +33,7 @@ export const Header = () => {
 
 const ThemeController = () => {
   return (
-    <label className="grid cursor-pointer place-items-center">
+    <label className="grid cursor-pointer place-items-center mx-4">
       <input
         type="checkbox"
         value="business"
