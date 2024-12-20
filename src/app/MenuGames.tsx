@@ -14,7 +14,7 @@ interface MenuItemProps {
 
 export const MenuGames: React.FC<MenuGamesProps> = ({ games, currentGame }) => {
   return (
-    <div className="flex flex-wrap w-full gap-4 lg:max-w-[200px] lg:flex-col">
+    <div className="flex flex-wrap w-full gap-4 max-md:justify-around max-md:order-last md:max-w-[114px] md:flex-col">
       <MenuItem filter="" isActive={!currentGame}>
         Home Page
       </MenuItem>
@@ -31,7 +31,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ filter, children, isActive }) => {
   return (
     <Link
       href={`/?game=${filter}`}
-      className={clsx("btn btn-primary  w-28", {
+      className={clsx("btn btn-secondary  w-28", {
         "btn-active": isActive,
       })}
     >

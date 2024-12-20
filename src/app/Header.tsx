@@ -2,12 +2,12 @@ import { Box } from "lucide-react";
 
 export const Header = () => {
   return (
-    <div className="flex min-h-16 w-full bg-primary items-center gap-4 text-primary-content">
+    <div className="flex min-h-20 w-full bg-secondary items-center gap-4 text-secondary-content">
       <div className="flex-none mx-4">
-        <Box />
+        <Box size={36} />
       </div>
       <div className="flex-1 text-center">
-        <p className="font-semibold text-xl">Game Box</p>
+        <p className="font-semibold text-3xl">Game Box</p>
       </div>
       <ThemeController />
     </div>

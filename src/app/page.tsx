@@ -14,20 +14,20 @@ export default function Home() {
   if (!currentGame) currentGame = "";
 
   return (
-    <main className="max-w-4xl m-auto">
+    <main className="max-w-3xl m-auto flex flex-col h-full md:border-x-2 md:border-secondary">
       <Header />
-      <div className="m-auto h-full flex">
-        <div className="px-4 py-8 flex flex-1 gap-4 max-lg:flex-col">
-          <MenuGames games={games} currentGame={currentGame} />
-        </div>
-        <div className="mb-4 mt-8 mx-4 min-h-80 w-full">
+      <div className="px-4 py-8 flex flex-1 gap-4 overflow-auto max-md:flex-col">
+        <MenuGames games={games} currentGame={currentGame} />
+        <div className="flex-1 justify-items-center text-justify text-xl font-semibold overflow-auto">
           {currentGame === "" && (
-            <p className="text-justify  text-lg">
-              Envie de vous détendre et de vous amuser ? Game Box est fait pour
-              vous ! Redécouvrez les jeux qui ont marqué votre enfance ou
-              initiez-vous à de nouveaux classiques. Avec Game Box, le fun est
-              garanti !
-            </p>
+            <>
+              <p>
+                Envie de vous détendre et de vous amuser ? Game Box est fait
+                pour vous ! Redécouvrez les jeux qui ont marqué votre enfance ou
+                initiez-vous à de nouveaux classiques.
+              </p>
+              <p className="mt-4">Avec Game Box, le fun est garanti !</p>
+            </>
           )}
           {currentGame === "TicTacToe" && <TicTacToe />}
           {currentGame === "Minesweeper" && <Minesweeper />}

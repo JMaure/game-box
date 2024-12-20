@@ -13,14 +13,14 @@ export const Cell = (props: CellType) => {
     return (
       <div
         onContextMenu={props.onContextMenu}
-        className="h-7 w-7 border border-secondary p-0.5"
+        className="h-10 w-10 flex items-center justify-center border border-secondary p-0.5"
       >
         <Skull />
       </div>
     );
   } else if (props.case.state === "revealed") {
     return (
-      <div className="h-7 w-7 text-center border border-secondary">
+      <div className="h-10 w-10 text-xl font-medium flex items-center justify-center border border-primary">
         {"" + props.case.value}
       </div>
     );
@@ -29,14 +29,14 @@ export const Cell = (props: CellType) => {
       <div
         onClick={props.onClick}
         onContextMenu={props.onContextMenu}
-        className="h-7 w-7 border border-secondary bg-primary"
+        className="h-10 w-10 border border-primary bg-secondary"
       ></div>
     );
   } else if (props.case.state === "marked") {
     return (
       <div
         onContextMenu={props.onContextMenu}
-        className="h-7 w-7 border border-secondary bg-primary p-0.5"
+        className="h-10 w-10 flex items-center justify-center border border-primary bg-secondary p-0.5"
       >
         <FlagTriangleRight />
       </div>

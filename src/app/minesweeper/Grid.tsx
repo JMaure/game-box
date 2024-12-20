@@ -13,7 +13,7 @@ type GridType = {
 
 export const Grid = (props: GridType) => {
   return (
-    <div className="grid grid-cols-9 border border-primary">
+    <div className="grid grid-cols-9 border border-secondary">
       {props.board.map((cell, index) => {
         return (
           <Cell
