@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export const NB_MINES: number = 10;
 export const GRID_WIDTH: number = 9;
 export const GRID_HEIGHT: number = 9;
@@ -9,7 +11,7 @@ export type Case = {
 
 const nbCases = GRID_HEIGHT * GRID_WIDTH;
 
-export const initGrid = (setGrid: Case[]) => {
+export const initGrid = (setGrid: Dispatch<SetStateAction<Case[]>>) => {
   // add mines in the grid (value=9)
   const tabMines: number[] = generateUniqueRandomNumbers(NB_MINES, nbCases - 1);
   const updatedGrid = Array(GRID_HEIGHT * GRID_WIDTH).fill({

@@ -8,7 +8,7 @@ type CellType = {
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void;
 };
 
-export const Cell: CellType = (props: CellType) => {
+export const Cell = (props: CellType) => {
   if (props.case.value === 9 && props.case.state === "revealed") {
     return (
       <div
