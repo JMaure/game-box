@@ -66,5 +66,35 @@ const initValues = (grid: Case[]) => {
       }
     }
   }
-  //return grid;
+};
+
+export const revealAdjacentCase0 = (grid: Case[], index: number) => {
+  const directions = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+  ];
+  for (const [dx, dy] of directions) {
+    const XIndex = Math.floor(index / 9);
+    const YIndex = index % 9;
+    const x = XIndex + dx;
+    const y = YIndex + dy;
+    if (
+      x >= 0 &&
+      x < 9 &&
+      y >= 0 &&
+      y < 9 &&
+      grid[x * 9 + y].state !== "revealed"
+    ) {
+      grid[x * 9 + y] = { value: grid[x * 9 + y].value, state: "revealed" };
+      if (grid[x * 9 + y].value === 0) {
+        revealAdjacentCase0(grid, x * 9 + y);
+      }
+    }
+  }
 };
