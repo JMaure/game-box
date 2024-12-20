@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useStopwatch } from "react-timer-hook";
 import { Grid } from "./Grid";
 import {
   Case,
@@ -7,19 +8,32 @@ import {
   initGrid,
   revealAdjacentCase0,
   NB_MINES,
+  nbMarkedMines,
+  isWin,
+  isLoose,
 } from "./utils";
+import { Bomb, Timer } from "lucide-react";
 
 export const Minesweeper = () => {
   const [grid, setGrid] = useState<Array<Case>>(
     Array(GRID_HEIGHT * GRID_WIDTH).fill({ value: 0, state: "hidden" })
   );
   const [init, setInit] = useState(false);
+  const remainingMines = NB_MINES - nbMarkedMines(grid);
+
+  const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch();
+
   if (!init) {
-    initGrid(grid, setGrid);
+    initGrid(setGrid);
     setInit(true);
+    reset();
+    pause();
   }
+  const win: boolean = isWin(grid);
+  const loose: boolean = isLoose(grid);
 
   const handleClick = (index: number) => {
+    if (!isRunning) start();
     if (grid[index].state === "hidden") {
       const updatedGrid = [...grid];
       updatedGrid[index] = { value: grid[index].value, state: "revealed" };
@@ -29,6 +43,12 @@ export const Minesweeper = () => {
       setGrid(updatedGrid);
     }
   };
+  if (win && isRunning) {
+    pause();
+  }
+  if (loose && isRunning) {
+    pause();
+  }
 
   const rightClick = (
     event: React.MouseEvent<HTMLDivElement>,
@@ -49,15 +69,55 @@ export const Minesweeper = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
-      <p className="">Minesweeper</p>
-      <Grid board={grid} onClick={handleClick} onContextMenu={rightClick} />
-      <button
-        className=" btn btn-secondary"
-        onClick={() => alert("left click")}
-        onContextMenu={() => alert("right click")}
-      >
-        right click
-      </button>
+      <div className="flex gap-4">
+        <MineCounter mines={remainingMines} />
+        <div className="text-xl font-semibold flex p-1 gap-2 border-2 border-secondary">
+          <Timer />
+          <span>{minutes}</span>:<span>{seconds}</span>
+        </div>
+      </div>
+      <Grid
+        board={grid}
+        onClick={win || loose ? () => {} : handleClick}
+        onContextMenu={win || loose ? () => {} : rightClick}
+      />
+      {win ? (
+        <div className="flex flex-col gap-2">
+          <p className="text-xl font-semibold">Well done !</p>
+          <button
+            onClick={() => {
+              setInit(false);
+              reset();
+            }}
+            className="btn btn-secondary"
+          >
+            Replay
+          </button>
+        </div>
+      ) : null}
+      {loose ? (
+        <div className="flex flex-col gap-2">
+          <p className="text-xl font-semibold">Try again !</p>
+          <button
+            onClick={() => {
+              setInit(false);
+              reset();
+            }}
+            className="btn btn-secondary"
+          >
+            Replay
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+const MineCounter = ({ mines }: { mines: number }) => {
+  return (
+    <div className="flex p-1 gap-2 border-2 border-secondary">
+      <Bomb />
+      <p className="text-xl font-semibold">{mines}</p>
     </div>
   );
 };

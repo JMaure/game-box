@@ -9,10 +9,13 @@ export type Case = {
 
 const nbCases = GRID_HEIGHT * GRID_WIDTH;
 
-export const initGrid = (grid: Case[], setGrid: Case[]) => {
+export const initGrid = (setGrid: Case[]) => {
   // add mines in the grid (value=9)
   const tabMines: number[] = generateUniqueRandomNumbers(NB_MINES, nbCases - 1);
-  const updatedGrid = [...grid];
+  const updatedGrid = Array(GRID_HEIGHT * GRID_WIDTH).fill({
+    value: 0,
+    state: "hidden",
+  });
   tabMines.forEach((element) => {
     updatedGrid[element] = { value: 9, state: "hidden" };
   });
@@ -97,4 +100,32 @@ export const revealAdjacentCase0 = (grid: Case[], index: number) => {
       }
     }
   }
+};
+
+export const nbMarkedMines = (grid: Case[]) => {
+  let count = 0;
+  for (const cell of grid) {
+    if (cell.state === "marked") count++;
+  }
+  return count;
+};
+
+export const isWin = (grid: Case[]) => {
+  let win = true;
+  for (const cell of grid) {
+    if (cell.value !== 9 && cell.state !== "revealed") {
+      win = false;
+    }
+  }
+  return win;
+};
+
+export const isLoose = (grid: Case[]) => {
+  let loose = false;
+  for (const cell of grid) {
+    if (cell.value === 9 && cell.state === "revealed") {
+      loose = true;
+    }
+  }
+  return loose;
 };

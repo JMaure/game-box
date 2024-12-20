@@ -23,11 +23,11 @@ export const TicTacToe = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
-      <p>{`It's player ${currentPlayer} turn : `}</p>
+      <p className="text-xl font-semibold">{`It's player ${currentPlayer} turn : `}</p>
       <Board board={board} onClick={handleClick} />
       {winner !== "" ? (
         <div className="flex flex-col gap-2">
-          <p>{`Player ${winner} wins !`}</p>
+          <p className="text-xl font-semibold">{`Player ${winner} wins !`}</p>
           <button onClick={resetGame} className="btn btn-secondary">
             Replay
           </button>
@@ -35,7 +35,7 @@ export const TicTacToe = () => {
       ) : null}
       {complete && winner === "" ? (
         <div className="flex flex-col gap-2">
-          <p>{"It's a draw !"}</p>
+          <p className="text-xl font-semibold">{"It's a draw !"}</p>
           <button onClick={resetGame} className="btn btn-secondary">
             Replay
           </button>

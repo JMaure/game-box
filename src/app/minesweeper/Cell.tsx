@@ -1,6 +1,6 @@
 import React from "react";
 import { Case } from "./utils";
-import { FlagTriangleRight } from "lucide-react";
+import { FlagTriangleRight, Skull } from "lucide-react";
 
 type CellType = {
   case: Case;
@@ -9,7 +9,16 @@ type CellType = {
 };
 
 export const Cell: CellType = (props: CellType) => {
-  if (props.case.state === "revealed") {
+  if (props.case.value === 9 && props.case.state === "revealed") {
+    return (
+      <div
+        onContextMenu={props.onContextMenu}
+        className="h-7 w-7 border border-secondary p-0.5"
+      >
+        <Skull />
+      </div>
+    );
+  } else if (props.case.state === "revealed") {
     return (
       <div className="h-7 w-7 text-center border border-secondary">
         {"" + props.case.value}
