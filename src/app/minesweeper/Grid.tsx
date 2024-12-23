@@ -4,7 +4,7 @@ import { Case } from "./utils";
 
 type GridType = {
   board: Array<Case>;
-  onClick: (index: number) => void;
+  onClick: (event: React.MouseEvent<HTMLDivElement>, index: number) => void;
   onContextMenu: (
     event: React.MouseEvent<HTMLDivElement>,
     index: number
@@ -19,7 +19,9 @@ export const Grid = (props: GridType) => {
           <Cell
             key={index}
             case={cell}
-            onClick={() => props.onClick(index)}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+              props.onClick(e, index)
+            }
             onContextMenu={(e: React.MouseEvent<HTMLDivElement>) =>
               props.onContextMenu(e, index)
             }

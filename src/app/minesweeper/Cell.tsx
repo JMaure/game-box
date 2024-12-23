@@ -4,7 +4,7 @@ import { FlagTriangleRight, Skull } from "lucide-react";
 
 type CellType = {
   case: Case;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void;
 };
 
@@ -35,6 +35,7 @@ export const Cell = (props: CellType) => {
   } else if (props.case.state === "marked") {
     return (
       <div
+        onClick={props.onClick}
         onContextMenu={props.onContextMenu}
         className="h-10 w-10 flex items-center justify-center border border-primary bg-secondary p-0.5"
       >

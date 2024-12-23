@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useStopwatch } from "react-timer-hook";
 import { Grid } from "./Grid";
 import {
@@ -12,7 +12,7 @@ import {
   isWin,
   isLoose,
 } from "./utils";
-import { Bomb, Timer } from "lucide-react";
+import { Bomb, Eye, FlagTriangleRight, Timer } from "lucide-react";
 
 export const Minesweeper = () => {
   const [grid, setGrid] = useState<Array<Case>>(
@@ -20,6 +20,7 @@ export const Minesweeper = () => {
   );
   const [init, setInit] = useState(false);
   const remainingMines = NB_MINES - nbMarkedMines(grid);
+  const [markMine, setMarkMine] = useState(false);
 
   const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch();
 
@@ -31,8 +32,9 @@ export const Minesweeper = () => {
   }
   const win: boolean = isWin(grid);
   const loose: boolean = isLoose(grid);
+  const endGame: boolean = win || loose;
 
-  const handleClick = (index: number) => {
+  const leftClick = (index: number) => {
     if (!isRunning) start();
     if (grid[index].state === "hidden") {
       const updatedGrid = [...grid];
@@ -67,6 +69,19 @@ export const Minesweeper = () => {
     }
   };
 
+  const handleClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    index: number
+  ) => {
+    console.log("click: ", markMine);
+    if (markMine) return rightClick(event, index);
+    else return leftClick(index);
+  };
+
+  const handleToggle = () => {
+    setMarkMine(!markMine);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <div className="flex gap-4">
@@ -78,37 +93,19 @@ export const Minesweeper = () => {
       </div>
       <Grid
         board={grid}
-        onClick={win || loose ? () => {} : handleClick}
-        onContextMenu={win || loose ? () => {} : rightClick}
+        onClick={endGame ? () => {} : handleClick}
+        onContextMenu={endGame ? () => {} : rightClick}
       />
-      {win ? (
-        <div className="flex flex-col gap-2">
-          <p className="text-xl font-semibold">Well done !</p>
-          <button
-            onClick={() => {
-              setInit(false);
-              reset();
-            }}
-            className="btn btn-secondary"
-          >
-            Replay
-          </button>
-        </div>
-      ) : null}
-      {loose ? (
-        <div className="flex flex-col gap-2">
-          <p className="text-xl font-semibold">Try again !</p>
-          <button
-            onClick={() => {
-              setInit(false);
-              reset();
-            }}
-            className="btn btn-secondary"
-          >
-            Replay
-          </button>
-        </div>
-      ) : null}
+      {endGame ? (
+        <Replay isWin={win} setInit={setInit} reset={reset} />
+      ) : (
+        <button
+          className="w-14 h-14 flex items-center justify-center checkbox bg-secondary checkbox-primary"
+          onClick={handleToggle}
+        >
+          {markMine ? <FlagTriangleRight /> : <Eye />}
+        </button>
+      )}
     </div>
   );
 };
@@ -118,6 +115,33 @@ const MineCounter = ({ mines }: { mines: number }) => {
     <div className="flex p-1 gap-2 border-2 border-secondary">
       <Bomb />
       <p className="text-xl font-semibold">{mines}</p>
+    </div>
+  );
+};
+
+type ReplayType = {
+  isWin: boolean;
+  setInit: Dispatch<SetStateAction<boolean>>;
+  reset: (offsetTimestamp?: Date, autoStart?: boolean) => void;
+};
+
+const Replay = (props: ReplayType) => {
+  return (
+    <div className="flex flex-col gap-2">
+      {props.isWin ? (
+        <p className="text-xl font-semibold">Well done !</p>
+      ) : (
+        <p className="text-xl font-semibold">Try again !</p>
+      )}
+      <button
+        onClick={() => {
+          props.setInit(false);
+          props.reset();
+        }}
+        className="btn btn-secondary"
+      >
+        Replay
+      </button>
     </div>
   );
 };
