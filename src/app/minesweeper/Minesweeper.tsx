@@ -73,7 +73,6 @@ export const Minesweeper = () => {
     event: React.MouseEvent<HTMLDivElement>,
     index: number
   ) => {
-    console.log("click: ", markMine);
     if (markMine) return rightClick(event, index);
     else return leftClick(index);
   };
