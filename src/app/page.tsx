@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className="max-w-3xl m-auto flex flex-col h-full md:border-x-2 md:border-secondary">
       <Header />
-      <div className="px-4 py-8 flex flex-1 gap-4 overflow-auto max-md:flex-col">
+      <div className="px-4 py-3 flex flex-1 gap-4 overflow-auto max-md:flex-col">
         <Suspense fallback={<DefaultPage games={games} />}>
           <Page games={games} />
         </Suspense>

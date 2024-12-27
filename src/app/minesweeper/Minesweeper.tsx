@@ -99,7 +99,7 @@ export const Minesweeper = () => {
         <Replay isWin={win} setInit={setInit} reset={reset} />
       ) : (
         <button
-          className="w-14 h-14 flex items-center justify-center checkbox bg-secondary checkbox-primary"
+          className="w-12 h-12 flex items-center justify-center checkbox bg-secondary checkbox-primary"
           onClick={handleToggle}
         >
           {markMine ? <FlagTriangleRight /> : <Eye />}
