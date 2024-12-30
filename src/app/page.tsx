@@ -41,12 +41,11 @@ const Page = (props: PageType) => {
       <div className="flex-1 justify-items-center text-justify text-xl font-semibold overflow-auto">
         {currentGame === "" && (
           <>
+            <p className="mt-4">Game Box: Your ticket to fun!</p>
             <p>
-              Envie de vous détendre et de vous amuser ? Game Box est fait pour
-              vous ! Redécouvrez les jeux qui ont marqué votre enfance ou
-              initiez-vous à de nouveaux classiques.
+              Ready to unwind and play? Game Box is your go-to destination.
+              Relive the games you loved as a kid or dive into new classics.
             </p>
-            <p className="mt-4">Avec Game Box, le fun est garanti !</p>
           </>
         )}
         {currentGame === "TicTacToe" && <TicTacToe />}
