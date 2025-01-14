@@ -7,12 +7,16 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/tictactoe/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/minesweeper/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/snake/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      gridTemplateColumns: {
+        "20": "repeat(20, minmax(0, 1fr))",
       },
     },
   },
