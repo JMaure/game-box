@@ -6,8 +6,8 @@ const generateGrid = (snake: number[], food: number): string[] => {
   snake.forEach((element) => {
     grid[element] = "O";
   });
-  grid[snake[0]] = "H";
   grid[food] = "F";
+  grid[snake[0]] = "H";
   return grid;
 };
 

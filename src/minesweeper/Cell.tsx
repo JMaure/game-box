@@ -20,7 +20,10 @@ export const Cell = (props: CellType) => {
     );
   } else if (props.case.state === "revealed") {
     return (
-      <div className="h-9 w-9 text-xl font-medium flex items-center justify-center border border-primary">
+      <div
+        className="h-9 w-9 
+      -xl font-medium flex items-center justify-center border border-primary"
+      >
         {"" + props.case.value}
       </div>
     );
