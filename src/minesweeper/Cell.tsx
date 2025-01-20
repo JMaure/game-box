@@ -1,6 +1,7 @@
 import React from "react";
 import { Case } from "./utils";
 import { FlagTriangleRight, Skull } from "lucide-react";
+import clsx from "clsx";
 
 type CellType = {
   case: Case;
@@ -21,8 +22,18 @@ export const Cell = (props: CellType) => {
   } else if (props.case.state === "revealed") {
     return (
       <div
-        className="h-9 w-9 
-      -xl font-medium flex items-center justify-center border border-primary"
+        className={clsx(
+          "h-9 w-9 -xl font-medium flex items-center justify-center border border-primary",
+          { "text-transparent": props.case.value === 0 },
+          { "text-blue-700": props.case.value === 1 },
+          { "text-green-700": props.case.value === 2 },
+          { "text-red-700": props.case.value === 3 },
+          { "text-deep-purple-900": props.case.value === 4 },
+          { "text-pink-900": props.case.value === 5 },
+          { "text-pink-900": props.case.value === 6 },
+          { "text-orange-900": props.case.value === 7 },
+          { "text-grey-600": props.case.value === 8 }
+        )}
       >
         {"" + props.case.value}
       </div>
