@@ -12,7 +12,8 @@ import {
   isWin,
   isLoose,
 } from "./utils";
-import { Bomb, Eye, FlagTriangleRight, Timer } from "lucide-react";
+import { Bomb, Eye, FlagTriangleRight, Timer, Trophy } from "lucide-react";
+import { useLocalStorage } from "@/app/globals";
 
 export const Minesweeper = () => {
   const [grid, setGrid] = useState<Array<Case>>(
@@ -21,6 +22,10 @@ export const Minesweeper = () => {
   const [init, setInit] = useState(false);
   const remainingMines = NB_MINES - nbMarkedMines(grid);
   const [markMine, setMarkMine] = useState(false);
+  const [bestScore, setBestScore] = useLocalStorage(
+    "minesweeper-best-score",
+    [0, 0]
+  );
 
   const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch();
 
@@ -30,7 +35,7 @@ export const Minesweeper = () => {
     reset();
     pause();
   }
-  const win: boolean = isWin(grid);
+  let win: boolean = isWin(grid);
   const loose: boolean = isLoose(grid);
   const endGame: boolean = win || loose;
 
@@ -47,6 +52,14 @@ export const Minesweeper = () => {
   };
   if (win && isRunning) {
     pause();
+    if (
+      ((seconds !== 0 || minutes !== 0) &&
+        minutes * 60 + seconds < bestScore[0] * 60 + bestScore[1]) ||
+      (bestScore[0] === 0 && bestScore[1] === 0)
+    ) {
+      win = false;
+      setBestScore([minutes, seconds]);
+    }
   }
   if (loose && isRunning) {
     pause();
@@ -88,6 +101,10 @@ export const Minesweeper = () => {
         <div className="text-xl font-semibold flex p-1 gap-2 border-2 border-secondary">
           <Timer />
           <span>{minutes}</span>:<span>{seconds}</span>
+        </div>
+        <div className="text-xl font-semibold flex p-1 gap-2 border-2 border-secondary">
+          <Trophy />
+          <span>{bestScore[0]}</span>:<span>{bestScore[1]}</span>
         </div>
       </div>
       <Grid

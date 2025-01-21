@@ -14,7 +14,9 @@ import {
   ArrowBigLeft,
   ArrowBigRight,
   ArrowBigUp,
+  Trophy,
 } from "lucide-react";
+import { useLocalStorage } from "@/app/globals";
 
 const useInterval = ({
   interval,
@@ -78,6 +80,7 @@ export const Snake = () => {
   const [food, setFood] = useState(generateFood(snake, []));
   const [grid, setGrid] = useState<Array<string>>(generateGrid(snake, food));
   const [isGameOver, setIsGameOver] = useState(false);
+  const [bestScore, setBestScore] = useLocalStorage("snake-best-score", 0);
 
   const handleInterval = () => {
     if (
@@ -119,10 +122,20 @@ export const Snake = () => {
 
   useEventListener({ eventName: "keydown", handler: handleKeyDown });
 
+  if (isGameOver && score > bestScore) {
+    setBestScore(score);
+  }
+
   return (
     <div className="flex flex-col items-center justify-center gap-2">
-      <div className="text-xl font-semibold flex p-1 gap-2 border-2 border-secondary">
-        <div>Score : {score}</div>
+      <div className="flex gap-4">
+        <div className="text-xl font-semibold flex p-1 gap-2 border-2 border-secondary">
+          <p>Score : {score}</p>
+        </div>
+        <div className="text-xl font-semibold flex p-1 gap-2 border-2 border-secondary">
+          <Trophy />
+          <span>{bestScore}</span>
+        </div>
       </div>
       <Grid grid={grid} />
       {isGameOver ? (
